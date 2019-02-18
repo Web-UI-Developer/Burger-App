@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import Button from '../../../components/UI/Button/Button';
 import Spinner from '../../../components/UI/Spinner/Spinner';
@@ -46,8 +45,7 @@ class ContactData extends Component {
                 validation: {
                     required: true,
                     minLength: 5,
-                    maxLength: 5,
-                    isNumeric: true
+                    maxLength: 5
                 },
                 valid: false,
                 touched: false
@@ -73,8 +71,7 @@ class ContactData extends Component {
                 },
                 value: '',
                 validation: {
-                    required: true,
-                    isEmail: true
+                    required: true
                 },
                 valid: false,
                 touched: false
@@ -88,7 +85,6 @@ class ContactData extends Component {
                     ]
                 },
                 value: '',
-                validation: {},
                 valid: true
             }
         },
@@ -104,7 +100,7 @@ class ContactData extends Component {
             formData[formElementIdentifier] = this.state.orderForm[formElementIdentifier].value;
         }
         const order = {
-            ingredients: this.props.ings,
+            ingredients: this.props.ingredients,
             price: this.props.price,
             orderData: formData
         }
@@ -120,9 +116,6 @@ class ContactData extends Component {
 
     checkValidity(value, rules) {
         let isValid = true;
-        if (!rules) {
-            return true;
-        }
         
         if (rules.required) {
             isValid = value.trim() !== '' && isValid;
@@ -134,16 +127,6 @@ class ContactData extends Component {
 
         if (rules.maxLength) {
             isValid = value.length <= rules.maxLength && isValid
-        }
-
-        if (rules.isEmail) {
-            const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-            isValid = pattern.test(value) && isValid
-        }
-
-        if (rules.isNumeric) {
-            const pattern = /^\d+$/;
-            isValid = pattern.test(value) && isValid
         }
 
         return isValid;
@@ -204,11 +187,4 @@ class ContactData extends Component {
     }
 }
 
-const mapStateToProps = state => {
-    return {
-        ings: state.ingredients,
-        price: state.totalPrice
-    }
-};
-
-export default connect(mapStateToProps)(ContactData);
+export default ContactData;
