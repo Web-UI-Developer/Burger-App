@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
 import ReactAux from '../../hoc/ReactAux/ReactAux';
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -12,10 +11,6 @@ import axios from '../../axios-orders';
 import * as actionTypes from '../../store/actions';
 
 class BurgerBuilder extends Component {
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {...}
-    // }
     state = {
         purchasing: false,
         loading: false,
